@@ -1,0 +1,130 @@
+<div id='js_cookieNotice' class='cookieNotice'>
+    <div class='cookieNotice__container'>
+        <p>{{'This website uses cookies to improve your experience.' | translate}}
+            <a id='js_cookieNotice_accept' href='#'>{{'Accept' | t}}</a>
+            {% if craft.acceptCookies.settings.showRejectButton %}
+                <a id='js_cookieNotice_refuse' href='#'>{{'Refuse' | t}}</a> 
+            {% endif %}
+            {% if craft.acceptCookies.settings.policyUrl is not empty %}
+                <a href='{{craft.acceptCookies.settings.policyUrl}}'>{{'Data policy' | t}}</a> 
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<style type='text/css'>
+    .cookieNotice {
+        background: #f4f4f4;
+        display: none;
+        font-family: 'europa', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        font-size: 100%;
+        line-height: 1.5;
+        left: 0;
+        padding: 12px 60px 12px 0;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 3px solid #112f3e;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(225deg, #ab3987, #4aa1c0);
+        color: #54659c;
+        z-index: 100;
+    }
+
+    .cookieNotice__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 auto;
+        max-width: 1140px;
+        width: 90%;
+    }
+
+    .cookieNotice__container  * {
+        margin: 0 0.5em;
+    }
+
+    .cookieNotice__container  a {
+        color: #2c2c30;
+    }
+
+
+
+</style>
+
+<script type='text/javascript'>
+    var elNotice = document.getElementById('js_cookieNotice')
+    var elAccept = document.getElementById('js_cookieNotice_accept')
+    var elRefuse = document.getElementById('js_cookieNotice_refuse')
+
+    function setCookie(name, value, days) {
+        var expiry = new Date()
+        expiry.setTime(expiry.getTime() + (days * 24 * 60 * 60 * 1000))
+        var expires = 'expires=' + expiry.toUTCString()
+        document.cookie = name + '=' + value + ';' + expires + ';' + 'path=/'
+    }
+
+    function getCookie(name) {
+        var name = name + '='
+        var decodedCookie = decodeURIComponent(document.cookie)
+        var ca = decodedCookie.split(';')
+
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i]
+
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1)
+            }
+
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length)
+        }
+
+        return false
+    }
+
+    function cookieIsSet() {
+        return getCookie('acceptCookies')
+    }
+
+    function showNotice() {
+        elNotice.style.display = 'block'
+    }
+
+    function hideNotice() {
+        elNotice.style.display = 'none'
+    }
+
+    function setAcceptCookie() {
+        setCookie('acceptCookies', '1', 365)
+    }
+
+    function loadAnalytics() {
+        {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', '{{craft.acceptCookies.settings.googleAnalyticsTrackingId}}', 'auto');
+            ga('set', 'anonymizeIp', true);
+            ga('send', 'pageview');
+        {% endif %}
+    }
+
+    window.onload = function() {
+        if (!cookieIsSet()) setTimeout(function() { showNotice() }, 2000); 
+        else loadAnalytics()
+
+        elAccept.onclick = elAccept.ontouch = function(e) {
+            e.preventDefault()
+            hideNotice()
+            setAcceptCookie()
+            loadAnalytics()
+        }
+
+        elRefuse.onclick = elRefuse.ontouch = function(e) {
+            e.preventDefault()
+            hideNotice()
+        }
+    }
+</script>

@@ -1,0 +1,36 @@
+{% import '_includes/forms' as forms %}
+
+<table class="data fullwidth">
+    <thead>
+        <th>{{'Option'|t}}</th>
+        <th>{{'Value'|t}}</th>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{'Google Analytics Tracking Id'|t}}</td>
+            <td>{{- forms.textField({
+                name: 'googleAnalyticsTrackingId',
+                value: settings.googleAnalyticsTrackingId,
+                instructions: 'Leave empty if the website doesn\'|t use Google Analytics'|t
+            }) -}}</td>
+        </tr>
+        <tr>
+            <td>{{'URL of your cookie policy page'|t}}</td>
+            <td>{{- forms.textField({
+                name: 'policyUrl',
+                value: settings.policyUrl,
+                instructions: 'Link to your data policy page'|t
+            }) -}}</td>
+        </tr>
+        <tr>
+            <td>{{'Let visitors reject cookies'|t}}</td>
+            <td>{{- forms.checkboxField({
+                name: 'showRejectButton',
+                value: settings.showRejectButton,
+                checked: settings.showRejectButton,
+                instructions: 'Google Analytics is disabled after rejccting cookies.'|t
+            }) -}}</td>
+        </tr>
+    </tbody>
+</table>
