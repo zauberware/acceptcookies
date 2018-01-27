@@ -32,8 +32,8 @@ Disable acceptor for logged in users ?
 ## Updates
 
 * 1.0.0
-	* Find entries by id with /entries/find?id={id}
-	* Add helper to generate url {{ craft.urlById.urlFor(entry) }}
+	* Basic cookie acceptor. If accepted -> triggers google analytics
+	* Simple config/settings
 	* Initial release!
 
 ## Feature Requests
