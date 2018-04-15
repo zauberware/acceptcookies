@@ -20,7 +20,7 @@ Setup for plugin `http://yourdomain.com/admin/settings/plugins/acceptcookies`
 1. Change Google Analytics ID
 2. Link to data policy page
 3. Let user reject the acceptor (-> no analytics.js for user)
-4. Include {{craft.acceptCookies.trackingCode|raw}} in your `_layout.twig`
+4. Add `{{craft.acceptCookies.trackingCode|raw}}` in your base layout
 
 Disable acceptor for logged in users ?
 ```php
