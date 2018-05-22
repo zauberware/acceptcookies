@@ -26,7 +26,9 @@ Setup for plugin `http://yourdomain.com/admin/settings/plugins/acceptcookies`
 
 Disable acceptor for logged in users ?
 ```php
-{{ craft.acceptCookies.trackingCode|raw }}
+{% if not currentUser %}
+   {{ craft.acceptCookies.trackingCode|raw }}
+{% endif %}
 ```
 
 
