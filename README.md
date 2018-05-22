@@ -1,5 +1,5 @@
-# acceptcookies - CraftCMS plugin + GoogleAnalytics
-CraftCMS plugin for a drop in cookie acceptor with GoogleAnalytics integration and loading of custom scripts
+# acceptcookies - Craft 2 CMS plugin + GoogleAnalytics
+Craft 2 plugin for a drop in cookie acceptor with GoogleAnalytics integration and loading of custom scripts
 
 ## Features
 
