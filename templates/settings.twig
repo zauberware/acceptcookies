@@ -8,15 +8,7 @@
 
     <tbody>
         <tr>
-            <td>{{'Google Analytics Tracking Id'|t}}</td>
-            <td>{{- forms.textField({
-                name: 'googleAnalyticsTrackingId',
-                value: settings.googleAnalyticsTrackingId,
-                instructions: 'Leave empty if the website doesn\'|t use Google Analytics'|t
-            }) -}}</td>
-        </tr>
-        <tr>
-            <td>{{'URL of your cookie policy page'|t}}</td>
+            <td>{{'URL to your policy page'|t}}</td>
             <td>{{- forms.textField({
                 name: 'policyUrl',
                 value: settings.policyUrl,
@@ -24,12 +16,29 @@
             }) -}}</td>
         </tr>
         <tr>
-            <td>{{'Let visitors reject cookies'|t}}</td>
+            <td>{{'Allow visitors to reject cookies'|t}}</td>
             <td>{{- forms.checkboxField({
                 name: 'showRejectButton',
                 value: settings.showRejectButton,
                 checked: settings.showRejectButton,
-                instructions: 'Google Analytics is disabled after rejccting cookies.'|t
+                instructions: 'Google Analytics and custom scripts won\'t be loaded after rejcting cookies.'|t
+            }) -}}</td>
+        </tr>
+        <tr>
+            <td>{{'Google Analytics (Anonymize IP per default)'|t}}</td>
+            <td>{{- forms.textField({
+                name: 'googleAnalyticsTrackingId',
+                value: settings.googleAnalyticsTrackingId,
+                instructions: 'Leave empty if the website doesn\'t use Google Analytics'|t
+            }) -}}</td>
+        </tr>
+        <tr>
+            <td>{{'Scripts to load external content, after user accepted cookies'|t}}</td>
+            <td>{{- forms.textArea({
+                rows: 20,
+                name: 'codeSnippets',
+                value: settings.codeSnippets,
+                instructions: 'Leave empty if the website doesn\'t use external scripts.'|t
             }) -}}</td>
         </tr>
     </tbody>

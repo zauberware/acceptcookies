@@ -16,7 +16,7 @@
     .cookieNotice {
         background: #f4f4f4;
         display: none;
-        font-family: 'europa', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         font-size: 100%;
         line-height: 1.5;
         left: 0;
@@ -25,10 +25,8 @@
         right: 0;
         bottom: 0;
         width: 100%;
-        border-bottom: 3px solid #112f3e;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(225deg, #ab3987, #4aa1c0);
-        color: #54659c;
+        border-bottom: 3px solid #999999;
+        color: #555555;
         z-index: 100;
     }
 
@@ -46,7 +44,7 @@
     }
 
     .cookieNotice__container  a {
-        color: #2c2c30;
+        color: #222222;
     }
 
 
@@ -99,7 +97,7 @@
         setCookie('acceptCookies', '1', 365)
     }
 
-    function loadAnalytics() {
+    function loadExternalScripts() {
         {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -109,17 +107,21 @@
             ga('set', 'anonymizeIp', true);
             ga('send', 'pageview');
         {% endif %}
+
+        {% if craft.acceptCookies.settings.codeSnippets is not empty %}
+            {{ craft.acceptCookies.settings.codeSnippets|raw }}
+        {% endif %}
     }
 
     window.onload = function() {
         if (!cookieIsSet()) setTimeout(function() { showNotice() }, 2000); 
-        else loadAnalytics()
+        else loadExternalScripts()
 
         elAccept.onclick = elAccept.ontouch = function(e) {
             e.preventDefault()
             hideNotice()
             setAcceptCookie()
-            loadAnalytics()
+            loadExternalScripts()
         }
 
         elRefuse.onclick = elRefuse.ontouch = function(e) {

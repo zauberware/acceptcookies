@@ -17,14 +17,15 @@ namespace Craft;
 
 class AcceptCookiesPlugin extends BasePlugin {
     function getName() { return 'Accept Cookies'; }
-    function getVersion() { return '1.0'; }
+    function getVersion() { return '1.1'; }
     function getDeveloper() { return 'zauberware technologies'; }
     function getDeveloperUrl() { return 'https://www.zauberware.com'; }
 
     protected function defineSettings() {
         return array(
             'googleAnalyticsTrackingId' => array(AttributeType::String,'default' => 'UA-YYYYYYYY-X'),
-            'policyUrl' => '',
+            'codeSnippets' => '',
+            'policyUrl' => '/data-policy',
             'showRejectButton' => array('default' => true)
         );
     }
