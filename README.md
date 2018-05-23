@@ -40,14 +40,49 @@ var head  = document.getElementsByTagName('head')[0];
 var link  = document.createElement('link');
 link.rel  = 'stylesheet';
 link.type = 'text/css';
+link.id   = 'myfont'
 
-# change the link to an css here
+// change the link to an css here
 link.href = 'https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700,100&amp;subset=latin,latin-ext';
 
 link.media = 'all';
 head.appendChild(link);
 
 ```
+
+### How to load maps (e.g. Google-Maps)
+Load maps from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
+
+```
+var head  = document.getElementsByTagName('head')[0];
+var link  = document.createElement('script');
+link.id  = 'maps';
+
+// change the API key in the maps link
+link.src = 'https://maps.googleapis.com/maps/api/js?key=MAPS_API_KEY&callback=initMap';
+
+link.async = true;
+link.defer = true;
+head.appendChild(link);
+
+```
+
+### How to facebook plugin
+Load facebook plugin from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
+
+```
+// Please use the snippets which facebooks give you. The language and API version from this snippet could be outdated.
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.5&appId=YOUR_APP_ID";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+```
+
+After the script is loaded it will call the function `initMap()`. Put your initialization logic for your maps in there.
 
 ## Changelog
 
