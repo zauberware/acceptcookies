@@ -78,6 +78,23 @@ head.appendChild(link);
 
 ```
 
+#### How to load Google Tag Manager (gtag.js)
+Load Google Tag Manager script only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
+
+```
+var head  = document.getElementsByTagName('head')[0];
+var gtagscript  = document.createElement('script');
+gtagscript.src= "https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-X";
+gtagscript.async = true;
+head.appendChild(gtagscript);
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-XXXXXXXXX-X');
+
+```
+
 #### How to facebook plugin
 Load facebook plugin from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
 
