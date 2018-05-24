@@ -31,15 +31,25 @@ Disable acceptor for logged in users ?
 {% endif %}
 ```
 
+### Opt-Out link in your data policy
 
-### How to load custom font (e.g. Google-Font)
+You can provide your visitors a link to opt-out of google analytics. This is the link to deactivate the tracking:
+
+```
+<a href="javascript:gaOptout();">Deactivate Google Analytics</a>
+```
+
+
+### Custom scripts under settings
+
+#### How to load custom font (e.g. Google-Font, Adobe TypeKit)
 Load font from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
 
 ```
 var head  = document.getElementsByTagName('head')[0];
 var link  = document.createElement('link');
 link.rel  = 'stylesheet';
-link.type = 'text/css';
+link.type = 'text/css'; // if you include TypeKit then remove this line
 link.id   = 'myfont'
 
 // change the link to an css here
@@ -50,7 +60,7 @@ head.appendChild(link);
 
 ```
 
-### How to load maps (e.g. Google-Maps)
+#### How to load maps (e.g. Google-Maps)
 Load maps from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
 
 ```
@@ -67,7 +77,7 @@ head.appendChild(link);
 
 ```
 
-### How to facebook plugin
+#### How to facebook plugin
 Load facebook plugin from external services only after user accepts cookies. Use this example code to put into the custom script section of plugin settings.
 
 ```
@@ -82,9 +92,30 @@ Load facebook plugin from external services only after user accepts cookies. Use
 
 ```
 
+### Experimental
+
+#### Load iframes after visitor accepts
+
+Write the following iframe in this way:
+
+```
+<div iframe-data="https://www.mylink.to/an/external/resource.mp4">
+  You have to accept cookies to view this video.
+</div>
+```
+
+The script will parse all [iframe-data] - elements and converts them into iframes 
+
+
 After the script is loaded it will call the function `initMap()`. Put your initialization logic for your maps in there.
 
 ## Changelog
+
+* 2.0
+ * GDPR ready!
+ * Optimized sentence in cookie acceptor.
+ * Experimental: Load iframe, only after user accepts cookie.
+
 
 * 1.1
  * Allow custom scripts
@@ -92,9 +123,9 @@ After the script is loaded it will call the function `initMap()`. Put your initi
  * Added sample to load fonts
 
 * 1.0
-	* Basic cookie acceptor. If accepted -> triggers google analytics
-	* Simple config/settings
-	* Initial release!
+  * Basic cookie acceptor. If accepted -> triggers google analytics
+  * Simple config/settings
+  * Initial release!
 
 ## Feature Requests
 * custom JS which loads after accepting cookies

@@ -17,7 +17,7 @@ namespace Craft;
 
 class AcceptCookiesPlugin extends BasePlugin {
     function getName() { return 'Accept Cookies'; }
-    function getVersion() { return '1.1'; }
+    function getVersion() { return '2.0'; }
     function getDeveloper() { return 'zauberware technologies'; }
     function getDeveloperUrl() { return 'https://www.zauberware.com'; }
 

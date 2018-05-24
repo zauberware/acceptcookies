@@ -1,14 +1,14 @@
 <div id='js_cookieNotice' class='cookieNotice'>
     <div class='cookieNotice__container'>
-        <p>{{'This website uses cookies to improve your experience.' | translate}}
-            <a id='js_cookieNotice_accept' href='#'>{{'Accept' | t}}</a>
-            {% if craft.acceptCookies.settings.showRejectButton %}
-                <a id='js_cookieNotice_refuse' href='#'>{{'Refuse' | t}}</a> 
-            {% endif %}
-            {% if craft.acceptCookies.settings.policyUrl is not empty %}
-                <a href='{{craft.acceptCookies.settings.policyUrl}}'>{{'Data policy' | t}}</a> 
-            {% endif %}
-        </p>
+        <p>{{'We use cookies to personalize content and ads, to offer features for social media and to analyze the access to our website. We also share information about your use of our website with our social media, weaving and analytics partners. Our partners may combine this information with other information that you have provided to them or that they have collected as part of your use of the Services. You accept our cookies when you click "Allow cookies" and continue to use this website.' | translate}}</p>
+
+        <a id='js_cookieNotice_accept' href='#'>{{'Allow cookies' | t}}</a>
+        {% if craft.acceptCookies.settings.showRejectButton %}
+            <a id='js_cookieNotice_refuse' href='#'>{{'Refuse' | t}}</a> 
+        {% endif %}
+        {% if craft.acceptCookies.settings.policyUrl is not empty %}
+            <a href='{{craft.acceptCookies.settings.policyUrl}}'>{{'Privacy Policy' | t}}</a> 
+        {% endif %}
     </div>
 </div>
 
@@ -26,14 +26,11 @@
         bottom: 0;
         width: 100%;
         border-bottom: 3px solid #999999;
-        color: #555555;
+        color: #999999;
         z-index: 100;
     }
 
     .cookieNotice__container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
         margin: 0 auto;
         max-width: 1140px;
         width: 90%;
@@ -43,8 +40,28 @@
         margin: 0 0.5em;
     }
 
-    .cookieNotice__container  a {
-        color: #222222;
+    .cookieNotice__container > a{
+        text-align: center;
+        text-decoration: none;
+        margin-top: 10px;
+        float: left;
+        background-color: transparent;
+        border: 0;
+        color: #ffffff;
+        display: inline-block;
+        padding: 14px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background-image: #cccccc;
+    }
+
+    #js_cookieNotice_refuse,
+    .cookieNotice__container > a:last-child{
+        background: #ffffff;
+        color: #16161f;
     }
 
 
@@ -55,6 +72,22 @@
     var elNotice = document.getElementById('js_cookieNotice')
     var elAccept = document.getElementById('js_cookieNotice_accept')
     var elRefuse = document.getElementById('js_cookieNotice_refuse')
+
+    {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+
+        // adding possibility to opt out only for analytics
+        var gaProperty = '{{craft.acceptCookies.settings.googleAnalyticsTrackingId}}';
+        var disableStr = 'ga-disable-' + gaProperty;
+
+        if (document.cookie.indexOf(disableStr + '=true') > -1) {
+            window[disableStr] = true;
+        }
+        function gaOptout() {
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+        }
+        
+    {% endif %}
 
     function setCookie(name, value, days) {
         var expiry = new Date()
@@ -99,34 +132,55 @@
 
     function loadExternalScripts() {
         {% if craft.acceptCookies.settings.googleAnalyticsTrackingId is not empty %}
+
+
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
               })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            
             ga('create', '{{craft.acceptCookies.settings.googleAnalyticsTrackingId}}', 'auto');
             ga('set', 'anonymizeIp', true);
             ga('send', 'pageview');
+
         {% endif %}
 
+        // convert data-src to src for iframes
+        var externalContents = $('[iframe-src]');
+        if(externalContents[0]){
+            for (var i = 0; i < externalContents.length; i++) {
+                var iframe  = document.createElement('iframe');
+                iframe.frameborder = $(externalContents[i]).attr('frameborder');
+                iframe.allowfullscreen = $(externalContents[i]).attr('allowfullscreen');
+                iframe.src =$(externalContents[i]).attr('iframe-src');
+                $(externalContents[i]).replaceWith($(iframe));
+            }
+        }
+
+        // Custom content
         {% if craft.acceptCookies.settings.codeSnippets is not empty %}
             {{ craft.acceptCookies.settings.codeSnippets|raw }}
         {% endif %}
+
+
     }
 
     window.onload = function() {
         if (!cookieIsSet()) setTimeout(function() { showNotice() }, 2000); 
-        else loadExternalScripts()
+        else loadExternalScripts();
 
         elAccept.onclick = elAccept.ontouch = function(e) {
-            e.preventDefault()
-            hideNotice()
-            setAcceptCookie()
-            loadExternalScripts()
+            e.preventDefault();
+            hideNotice();
+            setAcceptCookie();
+            loadExternalScripts();
         }
 
-        elRefuse.onclick = elRefuse.ontouch = function(e) {
-            e.preventDefault()
-            hideNotice()
+        if(elRefuse){
+            elRefuse.onclick = elRefuse.ontouch = function(e) {
+                e.preventDefault();
+                hideNotice();
+            }
         }
     }
 </script>
