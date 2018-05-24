@@ -1,13 +1,15 @@
-# acceptcookies - Craft 2 CMS plugin + GoogleAnalytics
-Craft 2 plugin for a drop in cookie acceptor with GoogleAnalytics integration and loading of custom scripts
+# acceptcookies - Craft 2 CMS plugin
+Craft 2 plugin for a drop in cookie acceptor to load GoogleAnalytics or other external resources only after the user accepts the Privacy Policy.
 
 ## Features
 
- * load GoogleAnalytics after accept
- * allows to load custom scripts like fonts, iframes, youtube videos, facebook, twitter plugin etc...
+ * Load GoogleAnalytics code only after accepting the notice.
+ * Provide link to opt-out from analytics services.
+ * Allows to load custom scripts like fonts, iframes, youtube videos, facebook, twitter plugin etc...
  * "Refuse cookies"-option for user
- * set link to data policy page in settungs
- * easy code to change style or behaviour
+ * Set link to data policy page in settings.
+ * Easy code to change style or behaviour.
+ * No dependencies, just a few lines of HTML, JS and CSS
 
 
 ## Installing
