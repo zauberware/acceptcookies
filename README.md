@@ -9,7 +9,7 @@ Craft 2 plugin for a drop in cookie acceptor to load GoogleAnalytics or other ex
  * "Refuse cookies"-option for user
  * Set link to data policy page in settings.
  * Easy code to change style or behaviour.
- * No JS lib dependency, just a few lines of HTML, JS and CSS
+ * No dependencies, just a few lines of HTML, JS and CSS
 
 
 ## Installing
