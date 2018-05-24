@@ -146,14 +146,16 @@
         {% endif %}
 
         // convert data-src to src for iframes
-        var externalContents = $('[iframe-src]');
+        var externalContents = document.querySelectorAll('[iframe-src]');
         if(externalContents[0]){
             for (var i = 0; i < externalContents.length; i++) {
                 var iframe  = document.createElement('iframe');
-                iframe.frameborder = $(externalContents[i]).attr('frameborder');
-                iframe.allowfullscreen = $(externalContents[i]).attr('allowfullscreen');
-                iframe.src =$(externalContents[i]).attr('iframe-src');
-                $(externalContents[i]).replaceWith($(iframe));
+                iframe.src = externalContents[i].getAttribute('iframe-src');
+                
+                iframe.frameborder = externalContents[i].getAttribute('frameborder');
+                iframe.allowfullscreen = externalContents[i].getAttribute('allowfullscreen');
+                // TODO convert more attribute or find better way to append all setted attributes and class to that element
+                externalContents[i].parentNode.replaceWith(iframe, externalContents[i]);
             }
         }
 
