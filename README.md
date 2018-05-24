@@ -4,6 +4,7 @@ Craft 2 plugin for a drop in cookie acceptor to load GoogleAnalytics or other ex
 ## Features
 
  * load GoogleAnalytics after accept
+ * provide link to opt-out from analytics
  * allows to load custom scripts like fonts, iframes, youtube videos, facebook, twitter plugin etc...
  * "Refuse cookies"-option for user
  * set link to data policy page in settungs
