@@ -1,7 +1,7 @@
 # acceptcookies - Craft 2 CMS plugin
 Craft 2 plugin for a drop in cookie acceptor to load GoogleAnalytics or other external resources only after the user accepts the Privacy Policy.
 
-**You don't use Craft ?** This [file (cookie_notice.twig)](https://github.com/zauberware/acceptcookies/blob/master/templates/cookie_notice.twig) is a good starting point. Just replace the twig statements `{{ ... }}` `{% ... %}` with standard text or your prefered template engine. In the end it's just plain HTML/CSS/JS!
+**You don't use Craft ?** This [gist](https://gist.github.com/simonfranzen/8d832e2bc02dc6716aaf05c15fe34ca9) is a good starting point. In the end it's just plain HTML/CSS/JS! 👏
 
 ## Features
 
